@@ -1,10 +1,9 @@
 import 'dart:convert';
 import '4-util.dart';
 
-Future<double> calculateTotal() async {
+Future<int> calculateTotal() async {
   try {
     String userData = await fetchUserData();
-
 
     Map<String, dynamic> userMap = jsonDecode(userData);
     String userId = userMap['id'];
@@ -15,7 +14,11 @@ Future<double> calculateTotal() async {
       throw 'Orders not found for user ID: $userId';
     }
 
-    List<dynamic> orders = jsonDecode(ordersData);
+    List<dynamic> orders = jsonDecode(ordersData) as List<dynamic>? ?? [];
+
+    if (orders.isEmpty) {
+      throw 'No orders found for user ID: $userId';
+    }
 
     double totalPrice = 0.0;
 
@@ -26,9 +29,9 @@ Future<double> calculateTotal() async {
       totalPrice += productPrice;
     }
 
-    return totalPrice;
+    return totalPrice.toInt();
   } catch (error) {
     print('error caught: $error');
-    return -1.0;
+    return -1;
   }
 }
