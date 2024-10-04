@@ -8,7 +8,11 @@ Future<double> calculateTotal() async {
     Map<String, dynamic> userMap = jsonDecode(userData);
     String userId = userMap['id'];
 
-    String ordersData = await fetchUserOrders(userId);
+    String? ordersData = await fetchUserOrders(userId);
+
+    if (ordersData == null) {
+      throw 'Orders not found for user ID: $userId';
+    }
 
     List<dynamic> orders = jsonDecode(ordersData);
 
