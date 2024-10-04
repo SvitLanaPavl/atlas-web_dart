@@ -5,6 +5,7 @@ Future<double> calculateTotal() async {
   try {
     String userData = await fetchUserData();
 
+
     Map<String, dynamic> userMap = jsonDecode(userData);
     String userId = userMap['id'];
 
@@ -17,6 +18,7 @@ Future<double> calculateTotal() async {
     List<dynamic> orders = jsonDecode(ordersData);
 
     double totalPrice = 0.0;
+
     for (var product in orders) {
       String productPriceData = await fetchProductPrice(product);
       
