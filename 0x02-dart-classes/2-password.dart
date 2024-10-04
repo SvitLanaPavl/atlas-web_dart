@@ -10,10 +10,9 @@ class Password {
     bool hasNumber = password.contains(RegExp(r'[0-9]'));
   
     return hasUpperCase && hasLowerCase && hasNumber;
-  
-    @override
+  }
+   @override
     String toString() {
       return 'Your password is $password';
     }
-  }
 }
