@@ -13,16 +13,16 @@ Future<double> calculateTotal() async {
     List<dynamic> orders = jsonDecode(ordersData);
 
     double totalPrice = 0.0;
-
     for (var product in orders) {
       String productPriceData = await fetchProductPrice(product);
-
-      double productPrice = jsonDecode(productPriceData);
+      
+      double productPrice = (jsonDecode(productPriceData) as num).toDouble();
       totalPrice += productPrice;
     }
+
     return totalPrice;
   } catch (error) {
     print('error caught: $error');
-    return -1;
+    return -1.0;
   }
 }
